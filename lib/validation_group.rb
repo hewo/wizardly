@@ -101,7 +101,9 @@ module ValidationGroup
         valid_without_validation_group?
       end
     end
+  end
 
+  module ActiveModel
     module Errors # included in ActiveRecord::Errors
       def add_with_validation_group(attribute,
           msg = @@default_error_messages[:invalid], *args,
@@ -144,4 +146,4 @@ end
 # jeffp:  moved from init.rb for gemification purposes -- 
 # require 'validation_group' loads everything now, init.rb requires 'validation_group' only
 ActiveRecord::Base.send(:extend, ValidationGroup::ActiveRecord::ActsMethods)
-ActiveRecord::Errors.send :include, ValidationGroup::ActiveRecord::Errors
+ActiveModel::Errors.send :include, ValidationGroup::ActiveModel::Errors
